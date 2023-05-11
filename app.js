@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const blogRouter = require("./routes/BlogRoutes");
+const dotenv = require('dotenv').config();
 //middleware
 app.use(express.json());
 
@@ -15,7 +16,7 @@ module.exports = app;
 const mongoose = require("mongoose");
 //configure mongoose
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/blogs",
+  process.env.mongoport ,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,6 +29,8 @@ mongoose.connect(
     }
   }
 );
+
+mongoose.set('strictQuery', false);
 
 
 app.listen(3001, () => {
